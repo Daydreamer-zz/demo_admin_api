@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from oAuth.models import NewUser
@@ -11,5 +10,3 @@ class UserInfoViewSet(viewsets.ViewSet):
         user = request.user
         serializer = NewUserSerializer(user)
         return Response({"msg": "success", "data": serializer.data})
-
-
