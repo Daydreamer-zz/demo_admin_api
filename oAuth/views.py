@@ -10,3 +10,8 @@ class UserInfoViewSet(viewsets.ViewSet):
         user = request.user
         serializer = NewUserSerializer(user)
         return Response({"msg": "success", "data": serializer.data})
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = NewUser.objects.all()
+    serializer_class = NewUserSerializer

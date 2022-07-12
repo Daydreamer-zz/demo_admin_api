@@ -9,7 +9,7 @@ class NewUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ["id", "username", "roles", "email", "last_login"]
+        fields = ["id", "username", "roles", "email", "last_login", "is_active"]
 
     def get_roles(self, obj):
         return obj.get_roles_display()

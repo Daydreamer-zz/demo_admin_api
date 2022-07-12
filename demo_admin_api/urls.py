@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework import routers
-from oAuth.views import UserInfoViewSet
+from oAuth.views import UserInfoViewSet, UserViewSet
 
 
 router_v1 = routers.DefaultRouter()
+router_v1.register("users", UserViewSet)
 
 
 urlpatterns = [
