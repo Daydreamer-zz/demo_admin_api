@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-from oAuth.models import NewUser, Books
-from oAuth.serializers import NewUserSerializer, BooksSerializer
+from oAuth.models import NewUser
+from oAuth.serializers import NewUserSerializer
 
 
 # Create your views here
