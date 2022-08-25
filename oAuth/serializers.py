@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 from rest_framework import serializers
-from oAuth.models import NewUser, Books
+from oAuth.models import NewUser
 
 
 class NewUserSerializer(serializers.ModelSerializer):
@@ -14,12 +14,3 @@ class NewUserSerializer(serializers.ModelSerializer):
     def get_roles(self, obj):
         return obj.get_roles_display()
 
-
-class BooksSerializer(serializers.ModelSerializer):
-    id = serializers.PrimaryKeyRelatedField(read_only=True)
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
-
-    class Meta:
-        model = Books
-        fields = ["id", "name", "author", "created_at", "updated_at"]

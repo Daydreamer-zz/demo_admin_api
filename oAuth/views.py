@@ -16,7 +16,3 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = NewUser.objects.all()
     serializer_class = NewUserSerializer
 
-
-class BooksViewSet(viewsets.ModelViewSet):
-    queryset = Books.objects.all()
-    serializer_class = BooksSerializer

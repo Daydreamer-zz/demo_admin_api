@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework import routers
-from oAuth.views import UserInfoViewSet, UserViewSet, BooksViewSet
+from oAuth.views import UserInfoViewSet, UserViewSet
+from books.views import BooksViewSet
 
 
 router_v1 = routers.DefaultRouter()
