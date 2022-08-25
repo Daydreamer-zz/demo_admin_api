@@ -2,30 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
 from django.utils.translation import gettext_lazy as _
-from utils.manager import SoftDeleteManager
+from utils.basemodel import BaseModel, SoftDeleteModel
 
 
 # Create your models here.
-class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class SoftDeleteModel(models.Model):
-    is_deleted = models.BooleanField(verbose_name="是否删除", default=False, blank=False, null=False)
-    objects = SoftDeleteManager()
-
-    def delete(self, using=None, keep_parents=False):
-        self.is_deleted = True
-        self.save()
-
-    class Meta:
-        abstract = True
-
-
 class NewUser(AbstractUser):
     role_type = [
         [0, "admin"],
