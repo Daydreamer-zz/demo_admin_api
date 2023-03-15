@@ -4,7 +4,7 @@ from rest_framework import serializers
 from oAuth.models import NewUser
 
 
-class NewUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     roles = serializers.SerializerMethodField()
 
     class Meta:
