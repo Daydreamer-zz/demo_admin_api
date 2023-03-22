@@ -22,7 +22,8 @@ from books.views import BooksViewSet
 
 
 router_v1 = routers.DefaultRouter()
-router_v1.register("users/create", UserCreateViewSet)
+router_v1.register("user_create", UserCreateViewSet)
+router_v1.register("user_activate", UserCreateViewSet)
 router_v1.register("users", UserViewSet)
 router_v1.register("books", BooksViewSet)
 

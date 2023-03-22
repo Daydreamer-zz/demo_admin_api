@@ -1,5 +1,6 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.exceptions import MethodNotAllowed
 from oAuth.models import NewUser
 from django.db.models import Q
 from oAuth.serializers import UserSerializer
@@ -38,7 +39,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class UserCreateViewSet(viewsets.ModelViewSet):
     queryset = NewUser.objects.all()
     serializer_class = UserSerializer
-    http_method_names = ['post']
+    http_method_names = ['get', 'post']
     permission_classes = []
 
     def create(self, request, *args, **kwargs):
@@ -46,11 +47,28 @@ class UserCreateViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user_info = self.perform_create(serializer)
         user_info.is_active = False
+        user_info.set_password(request.data["password"])
         user_info.save()
         code = user_info.code
-        print(code)
+        url = request.build_absolute_uri(f"/api/user_activate/{code}")
+        print(url)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save()
+        return serializer.save()
+
+    def list(self, request, *args, **kwargs):
+        raise MethodNotAllowed('GET')
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = NewUser.objects.get(code=kwargs['pk'])
+        instance.is_active = True
+        instance.save()
+        data = {
+            "status": "success",
+        }
+        # instance = self.get_object()
+        # serializer = self.get_serializer(instance)
+        return Response(data, status.HTTP_200_OK)
+

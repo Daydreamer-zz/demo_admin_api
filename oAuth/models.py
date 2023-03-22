@@ -15,7 +15,7 @@ class NewUser(AbstractUser):
     ]
     roles = models.IntegerField(verbose_name="角色", choices=role_type, default=1)
     last_login = models.DateTimeField(_("last login"), blank=True, null=True, auto_now=True)
-    code = models.UUIDField(verbose_name='uuid', default=uuid.uuid4, editable=False)
+    code = models.UUIDField(verbose_name='uuid', default=uuid.uuid4, editable=False, unique=True)
 
     objects = UserManager()
 
