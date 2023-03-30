@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import MethodNotAllowed
 from oAuth.models import NewUser
 from django.db.models import Q
+from demo_admin_api.settings import FRONTEND_URL
 from oAuth.serializers import UserSerializer
-
 
 # Create your views here
 class UserInfoViewSet(viewsets.ViewSet):
@@ -50,7 +50,8 @@ class UserCreateViewSet(viewsets.ModelViewSet):
         user_info.set_password(request.data["password"])
         user_info.save()
         code = user_info.code
-        url = request.build_absolute_uri(f"/api/user_activate/{code}")
+        # url = request.build_absolute_uri(f"/api/user_activate/{code}")
+        url = f"{FRONTEND_URL}/#/activate?code={code}"
         print(url)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
